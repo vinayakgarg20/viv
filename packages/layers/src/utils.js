@@ -115,8 +115,15 @@ export function onPointer(layer) {
 /**
  * Get physical size scaling Matrix4
  * @param {Object} loader PixelSource
+ * @param {Boolean} use3d Whether this is for 3D rendering (default: false)
  */
-export function getPhysicalSizeScalingMatrix(loader) {
+export function getPhysicalSizeScalingMatrix(loader, use3d = false) {
+  // For 2D viewing, don't apply physical size scaling to avoid
+  // coordinate issues with sub-pixel physical sizes (< 1 micron)
+  if (!use3d) {
+    return new Matrix4().identity();
+  }
+
   const { x, y, z } = loader?.meta?.physicalSizes ?? {};
   if (x?.size && y?.size && z?.size) {
     const min = Math.min(z.size, x.size, y.size);

@@ -53,7 +53,10 @@ function padContrastLimits({
   ).reduce((acc, val) => acc.concat(val), []);
   return paddedContrastLimits;
 }
-function getPhysicalSizeScalingMatrix(loader) {
+function getPhysicalSizeScalingMatrix(loader, use3d = false) {
+  if (!use3d) {
+    return new Matrix4().identity();
+  }
   const { x, y, z } = loader?.meta?.physicalSizes ?? {};
   if (x?.size && y?.size && z?.size) {
     const min = Math.min(z.size, x.size, y.size);
@@ -1813,7 +1816,9 @@ const VolumeLayer = class extends CompositeLayer {
         })
       );
       const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(
-        loader[resolution]
+        loader[resolution],
+        true
+        // 3D volume rendering
       );
       Promise.all(volumePromises).then((volumes) => {
         if (onViewportLoad) {

@@ -558,8 +558,9 @@ declare function padWithDefault<T>(arr: T[], defaultValue: T, padWidth: number):
 /**
  * Get physical size scaling Matrix4
  * @param {Object} loader PixelSource
+ * @param {Boolean} use3d Whether this is for 3D rendering (default: false)
  */
-declare function getPhysicalSizeScalingMatrix(loader: Object): Matrix4;
+declare function getPhysicalSizeScalingMatrix(loader: Object, use3d?: boolean): Matrix4;
 /**
  * Create a bounding box from a viewport based on passed-in viewState.
  * @param {Object} viewState The viewState for a certain viewport.

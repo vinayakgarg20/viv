@@ -64,7 +64,7 @@ function getDefaultInitialViewState(loader, viewSize, zoomBackOff = 0, use3d = f
   const zoom = Math.log2(
     Math.min(viewSize.width / trueWidth, viewSize.height / trueHeight)
   ) - zoomBackOff;
-  const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(source);
+  const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(source, use3d);
   const loaderInitialViewState = {
     target: (modelMatrix || new Matrix4()).transformPoint(
       (use3d ? physicalSizeScalingMatrix : new Matrix4()).transformPoint([

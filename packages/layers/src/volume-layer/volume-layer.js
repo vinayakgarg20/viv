@@ -123,7 +123,8 @@ const VolumeLayer = class extends CompositeLayer {
         })
       );
       const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(
-        loader[resolution]
+        loader[resolution],
+        true // 3D volume rendering
       );
 
       Promise.all(volumePromises).then(volumes => {
