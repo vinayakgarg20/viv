@@ -33,6 +33,12 @@ export function getDefaultInitialViewState(
 ) {
   const source = Array.isArray(loader) ? loader[0] : loader;
   const { width: pixelWidth, height: pixelHeight } = getImageSize(source);
+
+  // DEBUG: Log physical sizes
+  console.log('[VIV DEBUG] PhysicalSizes:', source?.meta?.physicalSizes);
+  console.log('[VIV DEBUG] use3d:', use3d);
+  console.log('[VIV DEBUG] Image dimensions:', { pixelWidth, pixelHeight });
+
   const scale = (modelMatrix || new Matrix4()).getScale();
   const [trueWidth, trueHeight] = [
     scale[0] * pixelWidth,
@@ -44,6 +50,10 @@ export function getDefaultInitialViewState(
       Math.min(viewSize.width / trueWidth, viewSize.height / trueHeight)
     ) - zoomBackOff;
   const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(source, use3d);
+
+  // DEBUG: Log scaling matrix
+  console.log('[VIV DEBUG] physicalSizeScalingMatrix:', physicalSizeScalingMatrix);
+
   const loaderInitialViewState = {
     target: (modelMatrix || new Matrix4()).transformPoint(
       (use3d ? physicalSizeScalingMatrix : new Matrix4()).transformPoint([
@@ -54,6 +64,10 @@ export function getDefaultInitialViewState(
     ),
     zoom
   };
+
+  // DEBUG: Log computed view state
+  console.log('[VIV DEBUG] computed viewState:', loaderInitialViewState);
+
   return loaderInitialViewState;
 }
 

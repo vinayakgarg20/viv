@@ -55,6 +55,9 @@ function getVivId(id) {
 function getDefaultInitialViewState(loader, viewSize, zoomBackOff = 0, use3d = false, modelMatrix) {
   const source = Array.isArray(loader) ? loader[0] : loader;
   const { width: pixelWidth, height: pixelHeight } = getImageSize(source);
+  console.log("[VIV DEBUG] PhysicalSizes:", source?.meta?.physicalSizes);
+  console.log("[VIV DEBUG] use3d:", use3d);
+  console.log("[VIV DEBUG] Image dimensions:", { pixelWidth, pixelHeight });
   const scale = (modelMatrix || new Matrix4()).getScale();
   const [trueWidth, trueHeight] = [
     scale[0] * pixelWidth,
@@ -65,6 +68,7 @@ function getDefaultInitialViewState(loader, viewSize, zoomBackOff = 0, use3d = f
     Math.min(viewSize.width / trueWidth, viewSize.height / trueHeight)
   ) - zoomBackOff;
   const physicalSizeScalingMatrix = getPhysicalSizeScalingMatrix(source, use3d);
+  console.log("[VIV DEBUG] physicalSizeScalingMatrix:", physicalSizeScalingMatrix);
   const loaderInitialViewState = {
     target: (modelMatrix || new Matrix4()).transformPoint(
       (use3d ? physicalSizeScalingMatrix : new Matrix4()).transformPoint([
@@ -75,6 +79,7 @@ function getDefaultInitialViewState(loader, viewSize, zoomBackOff = 0, use3d = f
     ),
     zoom
   };
+  console.log("[VIV DEBUG] computed viewState:", loaderInitialViewState);
   return loaderInitialViewState;
 }
 function getImageLayer(id, props) {
