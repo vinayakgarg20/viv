@@ -2,10 +2,13 @@
 
 # dependencies
 **/node_modules/*
-**/dist/*
+# **/dist/*  # Commented out to commit built files for GitHub installation
 /.pnp
 .pnp.js
 /dist_docs
+
+# But still ignore site builds
+sites/*/dist/*
 
 # testing
 /coverage

@@ -1,19 +1,22 @@
 {
-  "name": "@vivjs/monorepo",
-  "version": "0.14.2",
+  "name": "@hms-dbmi/viv",
+  "version": "0.18.0",
   "author": "Ilan Gold",
   "license": "MIT",
+  "type": "module",
+  "main": "packages/main/src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hms-dbmi/viv.git"
+    "url": "git+https://github.com/vinayakgarg20/viv.git"
   },
   "bugs": {
-    "url": "https://github.com/hms-dbmi/viv/issues"
+    "url": "https://github.com/vinayakgarg20/viv/issues"
   },
-  "homepage": "https://github.com/hms-dbmi/viv#readme",
+  "homepage": "https://github.com/vinayakgarg20/viv#readme",
   "scripts": {
     "dev": "pnpm -r dev",
     "build": "pnpm -r --parallel build",
+    "prepare": "pnpm build || npm run build || true",
     "clean": "pnpm -r exec -- rm -rf node_modules",
     "test": "pnpm -r --parallel test",
     "fix": "biome check --write .",
